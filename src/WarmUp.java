@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Arrays;
 
 class WarmUp {
     public static void main(String[] args) {
@@ -17,5 +16,7 @@ class WarmUp {
         }
 
         System.out.println(out.trim());
+
+        sc.close();
     }
 }

@@ -11,12 +11,10 @@ class PrimeiroNegativo {
 
                 String[] v = line.split(" ");
                 
-                long ini = System.nanoTime();
-
+                
                 String n = primeiroNegativo(v, 0);
 
-                long fim = System.nanoTime();
-                
+                                
                 System.out.println(n);
 
                 //System.out.println("primeiroNegativo " + (fim-ini) + " " + v.length);

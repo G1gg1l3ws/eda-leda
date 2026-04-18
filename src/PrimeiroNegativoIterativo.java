@@ -16,7 +16,7 @@ class PrimeiroNegativoIterativo {
 
                 long fim = System.nanoTime();
                 
-//                System.out.println(n);
+                System.out.println(n);
 
                 System.out.println("primeiroNegativoIterativo " + (fim-ini) + " " + v.length);
 
