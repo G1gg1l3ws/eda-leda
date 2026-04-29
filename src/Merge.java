@@ -4,46 +4,59 @@ import java.util.Arrays;
 class Merge {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-
+        
         int[] v = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         
-        System.out.println(merge(v, 0, v.length));
+        mergeSort(v, 0, v.length-1);
+
     }
 
-    public static int[] merge(int[] v, int left, int right) {
-        int m = (left+right)/2;
-
-        int rightHelper = right-left;
-        int[] helper = new int[rightHelper + 1];
-        for (int i = 0; i <= rightHelper; i++) {
-            helper[i] = v[left + i];
+    public static void mergeSort(int[] v, int left, int right) {
+        System.out.println(Arrays.toString(Arrays.copyOfRange(v, left, right+1)));
+        if (left == right) {
+            return;
         }
+
+        int middle = (left+right) / 2;
+        mergeSort(v, left, middle);
+        mergeSort(v, middle+1, right);
+
+        merge(v, left, right);
+    }
+
+    public static void merge(int[] v, int left, int right) {
+        int auxRight = right - left;
+
+        int auxMiddle = auxRight / 2;
         
-        int i = left;
-        int j = m+1;
+        int[] aux = new int[auxRight+1];
+        for (int i = 0; i < aux.length; i++) {
+            aux[i] = v[left + i];
+        }
+
+        int i = 0;
         int k = left;
-        while (i <= m && j <= right) {
-            if (helper[i] < helper[j]) {
-                v[k] = helper[i];
+        int j = auxMiddle+1;
+        while (i < auxMiddle+1 && j < auxRight+1) {
+            if (aux[i] < aux[j]) {
+                v[k] = aux[i];
                 i++;
             } else {
-                v[k] = helper[j];
+                v[k] = aux[j];
                 j++;
             }
-
             k++;
-            System.out.println(Arrays.toString(v));
         }
-
-        while (i <= m) {
-            v[k] = helper[i];
+        while (i < auxMiddle+1) {
+            v[k] = aux[i];
             i++;
+            k++;
         }
-        while (j <= right) {
-            v[k] = helper[j];
+        while (j < auxRight+1) {
+            v[k] = aux[j];
             j++;
+            k++;
         }
-
-        return v;
+        System.out.println(Arrays.toString(Arrays.copyOfRange(v, left, right+1)));
     }
 }
