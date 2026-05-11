@@ -1,6 +1,7 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 
-class ParticionamentoLomuto {
+class LomutoUltimo {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 
@@ -13,19 +14,19 @@ class ParticionamentoLomuto {
     }
 
     public static void particiona(int[] v, int ini, int fim) {
-        int pivot = v[ini];
-        int i = ini;
-        int j = i+1;
+        int pivot = v[fim];
+        int i = fim;
+        int j = fim-1;
 
-        while (j <= fim) {
-            if (v[j] < pivot) {
-                swap(v, ++i, j);
+        while (j >= ini) {
+            if (v[j] > pivot) {
+                swap(v, --i, j);
                 System.out.println(Arrays.toString(v));
             }
-            j++;
+            j--;
         }
 
-        swap(v, ini, i);
+        swap(v, fim, i);
         System.out.println(Arrays.toString(v));
     }
 
