@@ -49,7 +49,7 @@ public class QuickSortAsserts {
         sorting.sort(v, 0, v.length - 1);
         assert Arrays.equals(v, new int[]{2, 3, 4, 10});
     }	
-
+    
     public void testMedianaDeTres() {
         QuickSort sorting = new QuickSort(); 
         int[] v;

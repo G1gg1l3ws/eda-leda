@@ -1,4 +1,7 @@
+import java.util.Arrays;
+
 public class QuickSort implements SortingStrategy {
+
 
   
     /*
@@ -23,7 +26,64 @@ public class QuickSort implements SortingStrategy {
     * neste material: https://joaoarthurbm.github.io/eda/posts/particionamento-hoare/
     */
     public void sort(int[] v, int ini, int fim) {
-        // TODO implementar
+        if (ini >= fim)
+            return;
+
+        int index_pivot = particionamentoHoare(v, ini, fim);
+
+        sort(v, ini, index_pivot-1);
+        sort(v, index_pivot+1, fim);
+    }
+    
+    /*
+    * Método chamado por sort() que realiza o algoritmo de particionamento,
+    * por enquanto, realiza o Lomuto
+    *
+    */
+    private static int particionamentoLomuto(int[] v, int ini, int fim) {
+        int pivot = ini;
+        int i = pivot;
+        int j = i+1;
+        
+        while (j <= fim) {
+            if (v[j] <= v[pivot]) {
+                swap(v, ++i, j);
+                System.out.println(Arrays.toString(v));
+            }
+            j++;
+        }
+        swap(v, i, pivot);
+
+        return i;
+    }
+
+    private static int particionamentoHoare(int[] v, int ini, int fim) {
+        int pivot = ini;
+        int i = pivot+1;
+        int j = fim;
+        
+        while (i <= j) {
+            while (i <= j && v[i] <= v[pivot]) {
+                i++;
+            }
+
+            while (i <= j && v[j] > v[pivot]) {
+                j--;
+            }
+            
+            if (i < j) {
+                swap(v, i, j);
+            }
+        }
+        swap(v, j, pivot);
+
+        return j;
+    }
+
+    private static void swap(int[] v, int i, int j) {
+        int aux = v[i];
+        v[i] = v[j];
+        v[j] = aux;
     }
 
 
@@ -38,14 +98,14 @@ public class QuickSort implements SortingStrategy {
     * Interprete os testes para saber qual valor usar como elemento central para calcular a mediana de três.
     */
     public int medianaDeTres(int[] v) {
-        return -1;
-    }
+        int fim = v.length - 1;
+        int meio = (fim + 0) / 2;
+        if (v[0] <= v[meio] && v[meio] <= v[fim])
+            return v[meio];
+        if ((v[meio] <= v[0] && v[0] <= v[fim]) || (v[fim] <= v[0] && v[0] <= v[meio]))
+            return v[0];
 
-    public static void main(String[] args) {
-        QuickSort sorting = new QuickSort(); 
-        int[] v;
+        return v[fim];
 
-        v = new int[]{5,1,4,3,2,6,7,11,9,8,10};
-        sorting.mediana(v);
     }
 }
