@@ -9,6 +9,7 @@ class Merge {
         
         mergeSort(v, 0, v.length-1);
 
+        sc.close();
     }
 
     public static void mergeSort(int[] v, int left, int right) {

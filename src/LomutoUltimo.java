@@ -11,6 +11,7 @@ class LomutoUltimo {
 
         System.out.println(Arrays.toString(v));
 
+        s.close();
     }
 
     public static void particiona(int[] v, int ini, int fim) {

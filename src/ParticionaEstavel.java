@@ -1,14 +1,12 @@
 import java.util.*;
 
-class ParticionamentoLomuto {
+class ParticionaEstavel {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 
         int[] v = Arrays.stream(s.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         
         particiona(v, 0, v.length-1);
-
-        System.out.println(Arrays.toString(v));
 
         s.close();
     }
@@ -21,12 +19,15 @@ class ParticionamentoLomuto {
         while (j <= fim) {
             if (v[j] < pivot) {
                 swap(v, ++i, j);
-                System.out.println(Arrays.toString(v));
             }
             j++;
         }
 
-        swap(v, ini, i);
+        int k = ini;
+        while (k < i) {
+            swap(v, k, k+1);
+            k++;
+        }
         System.out.println(Arrays.toString(v));
     }
 
@@ -36,3 +37,4 @@ class ParticionamentoLomuto {
         v[j] = aux;
     }
 }
+

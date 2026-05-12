@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class QuickSort implements SortingStrategy {
 
 
@@ -39,7 +37,7 @@ public class QuickSort implements SortingStrategy {
     * Método chamado por sort() que realiza o algoritmo de particionamento,
     * por enquanto, realiza o Lomuto
     *
-    */
+    *
     private static int particionamentoLomuto(int[] v, int ini, int fim) {
         int pivot = ini;
         int i = pivot;
@@ -56,6 +54,7 @@ public class QuickSort implements SortingStrategy {
 
         return i;
     }
+    */
 
     private static int particionamentoHoare(int[] v, int ini, int fim) {
         int pivot = ini;

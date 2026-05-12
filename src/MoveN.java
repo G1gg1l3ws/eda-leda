@@ -8,6 +8,8 @@ class MoveN {
         int[] array = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
 
         moveElemento(array);
+
+        sc.close();
     }
 
     public static void moveElemento(int[] array) {

@@ -10,6 +10,8 @@ class BuscaBin {
         int n = Integer.parseInt(sc.nextLine());
 
         buscaBinaria(array, n);
+
+        sc.close();
     }
 
     public static void buscaBinaria(int[] array, int n) {

@@ -8,6 +8,7 @@ class BubbleSort {
         
         sort(v);
 
+        sc.close();
     }
 
     public static void sort(int[] v) {
