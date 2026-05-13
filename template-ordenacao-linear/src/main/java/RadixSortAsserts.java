@@ -8,7 +8,7 @@ public class RadixSortAsserts {
         int[] v;
 
         v = new int[]{800, 100, 780, 450, 300, 200, 103};
-        sorting.radixSort(v);
+        assert Arrays.equals(sorting.radixSort(v), new int[]{100,103,200,300,450,780,800});
 
         v = new int[]{2};
         assert Arrays.equals(sorting.radixSort(v), new int[]{2});
