@@ -13,19 +13,19 @@ class ParticionaEstavel {
 
     public static void particiona(int[] v, int ini, int fim) {
         int pivot = v[ini];
-        int i = ini;
-        int j = i+1;
+        int i = fim+1;
+        int j = i-1;
 
-        while (j <= fim) {
-            if (v[j] <= pivot) {
-                swap(v, ++i, j);
+        while (j >= ini) {
+            if (v[j] > pivot) {
+                swap(v, --i, j);
                 System.out.println(Arrays.toString(v));
             }
-            j++;
+            j--;
         }
 
         int k = ini;
-        while (k < i) {
+        while (k < i-1) {
             swap(v, k, k+1);
             k++;
         }
@@ -38,4 +38,3 @@ class ParticionaEstavel {
         v[j] = aux;
     }
 }
-
