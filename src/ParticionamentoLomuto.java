@@ -19,7 +19,7 @@ class ParticionamentoLomuto {
         int j = i+1;
 
         while (j <= fim) {
-            if (v[j] < pivot) {
+            if (v[j] <= pivot) {
                 swap(v, ++i, j);
                 System.out.println(Arrays.toString(v));
             }
