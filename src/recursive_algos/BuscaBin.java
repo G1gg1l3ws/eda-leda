@@ -1,3 +1,4 @@
+package recursive_algos;
 import java.util.Scanner;
 import java.util.Arrays;
 

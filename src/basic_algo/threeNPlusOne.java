@@ -1,3 +1,5 @@
+package basic_algo;
+
 import java.util.Scanner;
 
 class threeNPlusOne {

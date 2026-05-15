@@ -1,3 +1,5 @@
+package linear_sorting;
+
 import java.util.*;
 
 class CountingSort {

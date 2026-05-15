@@ -1,24 +1,26 @@
+package basic_algo;
+
 import java.io.*;
 import java.util.Arrays;
 
-class Freq {
+class VetorCircular {
     public static void main(String[] args) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            
-            int num = Integer.parseInt(reader.readLine());
 
             int[] array = Arrays.stream(reader.readLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-            
-            int f = 0;
 
-            for (int i = 0; i < array.length; i++) {
-                if (array[i] == num) {
-                    f += 1;
-                }
+            int n = Integer.parseInt(reader.readLine());
+            
+
+            String[] out = new String[n];
+            for (int i = 0; i < n; i++) {
+                out[i] = Integer.toString(array[i%array.length]);
             }
-            System.out.println(f);
+
+            System.out.println(String.join(" ", out));
 
         } catch (IOException ioe) {}
     }
+
 }

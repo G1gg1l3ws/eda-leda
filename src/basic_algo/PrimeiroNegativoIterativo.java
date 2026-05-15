@@ -1,3 +1,5 @@
+package basic_algo;
+
 import java.io.*;
 
 class PrimeiroNegativoIterativo {

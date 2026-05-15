@@ -1,5 +1,6 @@
-import java.util.Arrays;
-import java.util.Scanner;
+package nlogn_sorting;
+
+import java.util.*;
 
 class LomutoUltimo {
     public static void main(String[] args) {

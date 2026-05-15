@@ -1,5 +1,6 @@
-import java.util.Scanner;
-import java.util.Arrays;
+package nlogn_sorting;
+
+import java.util.*;
 
 class Merge {
     public static void main(String[] args) {

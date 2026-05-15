@@ -1,17 +1,19 @@
+package linear_sorting;
+
 import java.util.*;
 
-class RadixSortDois {
+class RadixSortTres {
 	public int[] radixSort(int[] v, int n) {
         int[] sorted = new int[v.length];
-        //quantas vezes iterar: tamanho do primeiro elem
-        for (int x = 1; x <= n; x++) {
+        //quantas vezes iterar: tamanho do primeiro elem / 2
+        for (int x = 1; x <= n/3; x++) {
             //separa os digitos de cada numero
             int[] bucket = new int[v.length];
             for (int i = 0; i < bucket.length; i++) {
-                bucket[i] = (int) Math.floor((v[i] % Math.pow(10, x)) / Math.pow(10, x - 1));
+                bucket[i] = (int) Math.floor((v[i] % Math.pow(1000, x)) / Math.pow(1000, x - 1));
             }
 
-            int[] c = new int[100];
+            int[] c = new int[1000];
             for (int i = 0; i < bucket.length; i++) {
                 c[bucket[i]]++;
             }
@@ -41,7 +43,7 @@ class RadixSortDois {
         int n = Integer.parseInt(sc.nextLine());
         
 
-        RadixSort r = new RadixSort();
+        RadixSortTres r = new RadixSortTres();
 
         r.radixSort(v, n);
 

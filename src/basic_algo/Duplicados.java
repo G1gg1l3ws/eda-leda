@@ -1,3 +1,5 @@
+package basic_algo;
+
 import java.io.*;
 import java.util.HashSet;
 

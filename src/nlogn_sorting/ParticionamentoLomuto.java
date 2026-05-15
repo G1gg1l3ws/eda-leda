@@ -1,3 +1,5 @@
+package nlogn_sorting;
+
 import java.util.*;
 
 class ParticionamentoLomuto {
