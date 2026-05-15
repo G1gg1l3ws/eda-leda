@@ -1,7 +1,6 @@
 package linear_sorting;
 
 import java.util.*;
-import linear_sorting.*;
 
 class OrdenaPlaca {
     public static void main(String[] args) {
