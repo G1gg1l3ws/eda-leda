@@ -1,3 +1,5 @@
+package n2_sorting;
+
 import java.util.*;
 
 class BubbleSort {

@@ -1,3 +1,5 @@
+package n2_sorting;
+
 import java.io.*;
 import java.util.Arrays;
 
