@@ -1,4 +1,6 @@
-public class QuickSort implements SortingStrategy {
+
+
+public class QuickSort {
 
 
   

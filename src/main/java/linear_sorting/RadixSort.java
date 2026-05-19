@@ -2,7 +2,7 @@ package linear_sorting;
 
 import java.util.*;
 
-class RadixSort {
+public class RadixSort {
 	public int[] radixSort(int[] v, int n) {
         int[] sorted = new int[v.length];
         //quantas vezes iterar: tamanho do primeiro elem

@@ -1,7 +1,9 @@
+
+
 import java.util.Arrays;
 
 
-public class MergeSort implements SortingStrategy {
+public class MergeSort {
 
     /**
     * Implemente o método abaixo, que recebe dois arrays ordenados em forma crescente
