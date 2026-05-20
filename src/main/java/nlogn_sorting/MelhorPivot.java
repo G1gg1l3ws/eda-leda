@@ -30,7 +30,7 @@ class MelhorPivot {
             }
         }
 
-        if ((Math.abs(v.length - leftPivot1 - 1) / 2) >= (Math.abs(v.length - leftPivot2 - 1) / 2)) {
+        if (Math.abs((v.length - leftPivot1 - 1) - leftPivot1) <= Math.abs((v.length - leftPivot2 - 1) - leftPivot2)) {
             return pivot1;
         }
 
