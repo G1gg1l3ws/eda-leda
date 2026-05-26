@@ -1,8 +1,9 @@
+package nlogn_sorting;
 
 
 import java.util.*;
 
-class ParticionamentoLomuto {
+class ParticionaEstavel {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
 
@@ -10,26 +11,29 @@ class ParticionamentoLomuto {
         
         particiona(v, 0, v.length-1);
 
-        System.out.println(Arrays.toString(v));
-
         s.close();
     }
 
     public static void particiona(int[] v, int ini, int fim) {
         int pivot = v[ini];
-        int i = ini;
+        int i = 0;
         int j = i+1;
 
         while (j <= fim) {
             if (v[j] <= pivot) {
-                swap(v, ++i, j);
-                System.out.println(Arrays.toString(v));
+                shift(v, ++i, j);
             }
             j++;
         }
 
-        swap(v, ini, i);
         System.out.println(Arrays.toString(v));
+    }
+
+    public static void shift(int[] v, int i, int j) {
+        while(i <= j) {
+            swap(v, j, j-1);
+            j--;
+        }
     }
 
     public static void swap(int[] v, int i, int j) {
