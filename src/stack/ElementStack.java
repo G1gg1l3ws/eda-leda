@@ -6,40 +6,56 @@ class ElementStack {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        String[] nums = sc.nextLine().split(" ");
+        int[] stack = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
         int target = Integer.parseInt(sc.nextLine());
-        
-        Pilha stack = new Pilha(nums.length);
-
-        for (int i = 0; i < nums.length; i++)
-            stack.push(Integer.parseInt(nums[i]));
         
         System.out.println(searchStack(stack, target));
 
         sc.close();
     }
     
-    private static String searchStack(Pilha stack, int target) {
-        if (target > stack.size()) {
+    private static String searchStack(int[] stack, int target) {
+        int topStack = stack.length - 1;
+        int topAux = -1;
+        int[] aux = new int[stack.length];
+
+        if (target > topStack) {
             return "indice invalido";
         }
-
-        Pilha aux = new Pilha(stack.size());
-
-        int i = stack.size();
-        int val = 0;
-        while (i > target + 1) {
-            aux.push(stack.pop());
-            i--;
-        }
         
-        val = stack.peek();
+        int val = 0;
+        while (!isEmpty(topStack)) {
+            if (topStack == target) {
+                val = peek(stack, topStack);
+            }
+            push(aux, pop(stack, topStack), topAux);
+            topStack--;
+            topAux++;
+        }
 
-        while (i < stack.size()) {
-            stack.push(aux.pop());
-            i++;
+        while (!isEmpty(topAux)) {
+            push(stack, pop(aux, topAux), topStack);
+            topStack++;
+            topAux--;
         }
 
         return Integer.toString(val);
     }
+    
+    private static void push(int[] s, int val, int top) {
+        s[++top] = val;
+    }
+
+    private static int pop(int[] s, int top) {
+        return s[top--];
+    }
+
+    private static int peek(int[] s, int top) {
+        return s[top];
+    }
+
+    private static boolean isEmpty(int top) {
+        return top == -1;
+    }
+    
 }
