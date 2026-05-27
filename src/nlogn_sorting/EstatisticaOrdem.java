@@ -1,3 +1,4 @@
+package nlogn_sorting;
 
 
 import java.util.*;
@@ -12,7 +13,7 @@ class EstatisticaOrdem {
         
         System.out.println(particiona(v, 0, v.length-1));
 
-        System.out.println(Arrays.toString(v));
+        //System.out.println(Arrays.toString(v));
 
         s.close();
     }
