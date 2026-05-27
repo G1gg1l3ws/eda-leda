@@ -135,12 +135,14 @@ public class AssertsFila {
         fila.addLast(10);
         assert fila.indexOf(10) == 0;
         fila.addLast(20);
-        fila.indexOf(20);
+        assert fila.indexOf(20) == 1;
         assert fila.indexOf(10) == 0;
 
         fila.addLast(30);
         fila.addLast(10);
         assert fila.indexOf(30) == 2;
+        
+        assert fila.indexOf(10) == 0;
     }
 
     public void testFilaLastIndexOf() {

@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Fila {
     
     private int[] queue;
@@ -30,11 +28,10 @@ public class Fila {
         }
         if (isEmpty())
             this.head = 0;
+        
         this.tail = ((this.tail + 1) % this.queue.length);
         this.queue[tail] = valor;
         this.size += 1;
-        System.out.println("head: " + (head) + ", tail: " + (tail) + ", size: " + size + "\n");
-        System.out.println(Arrays.toString(this.queue));
     }
 
     // deve lançar exceção caso a fila esteja vazia.
@@ -51,9 +48,7 @@ public class Fila {
         }
 
         this.size -= 1;
-        System.out.println("head: " + (head) + ", tail: " + (tail) + ", size: " + size);
-        System.out.println(Arrays.toString(this.queue));
-        System.out.println("pop(): " + val + "\n");
+
         return val;
     }
 
@@ -63,7 +58,7 @@ public class Fila {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("Queue empty");
         }
-        System.out.println("First: " + this.queue[(this.head)] + "\n");
+     
         return this.queue[this.head];
     }
 
@@ -73,7 +68,7 @@ public class Fila {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("Queue empty");
         }
-        System.out.println("Last: " + this.queue[this.tail] + "\n");
+        
         return this.queue[this.tail];
     }
 
@@ -90,7 +85,6 @@ public class Fila {
                 out += this.getFirst();
             }
             
-            System.out.println(out);
             aux.addLast(this.removeFirst());
         }
 
@@ -117,7 +111,6 @@ public class Fila {
 
             this.addLast(aux.removeFirst());
         }
-        System.out.println(this.toString());
 
         return index;
     }
@@ -138,7 +131,6 @@ public class Fila {
             this.addLast(aux.removeFirst());
         }
 
-        System.out.println(this.toString());
         return index;
     }
     
