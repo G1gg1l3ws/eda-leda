@@ -36,7 +36,7 @@ public class Pilha {
     }
 
     public int size() {
-        return top;
+        return top + 1;
     }
 
 }

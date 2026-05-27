@@ -14,7 +14,7 @@ class ElementStack {
         for (int i = 0; i < nums.length; i++)
             stack.push(Integer.parseInt(nums[i]));
         
-        searchStack(stack, target);
+        System.out.println(searchStack(stack, target));
 
         sc.close();
     }
@@ -28,14 +28,16 @@ class ElementStack {
 
         int i = stack.size();
         int val = 0;
-        while (i > target) {
+        while (i > target + 1) {
             aux.push(stack.pop());
+            i--;
         }
         
         val = stack.peek();
 
-        while (i <= stack.size()) {
+        while (i < stack.size()) {
             stack.push(aux.pop());
+            i++;
         }
 
         return Integer.toString(val);
