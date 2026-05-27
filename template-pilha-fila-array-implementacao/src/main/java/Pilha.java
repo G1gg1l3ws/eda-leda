@@ -21,8 +21,7 @@ public class Pilha {
         if (isFull())
             throw new IndexOutOfBoundsException("Pilha cheia");
 
-        this.topo += 1;
-        this.pilha[this.topo] = valor;
+        this.pilha[++this.topo] = valor;
     }
 
     // deve lançar exceção caso a pilha esteja vazia.
@@ -30,9 +29,7 @@ public class Pilha {
         if (isEmpty())
             throw new IndexOutOfBoundsException("Pilha vazia");
             
-        int val = this.pilha[this.topo];
-        this.topo -= 1;
-        return val;
+        return this.pilha[this.topo--];
     }
 
     // deve lançar exceção caso a pilha esteja vazia.
@@ -51,25 +48,19 @@ public class Pilha {
     public String toString() {
         String stackString = "";
         
-        int i = this.size();
-        Pilha aux = new Pilha(this.size());
-        while (i > 0) {
+        Pilha aux = new Pilha(this.pilha.length);
+        while (this.size() > 0) {
             aux.push(this.pop());
-            i--;
         }
-        
-        System.out.println(aux.size());
 
-        while (i < aux.size()) {
-            //System.out.println(i);
-            if (i < aux.size() - 1) {
+        while (aux.size() > 0) {
+            if (aux.size() > 1) {
                 stackString += aux.peek() + ", ";
 
             } else {
                 stackString += aux.peek();
             }
             this.push(aux.pop());
-            i++;
         }
 
         return stackString;
@@ -82,45 +73,39 @@ public class Pilha {
     // Não é permitido iterar diretamente sobre o array. Use as operações push, pop,
     // isEmpty etc.
     public int indexOf(int valor) {
-        Pilha aux = new Pilha(this.size());
+        Pilha aux = new Pilha(this.pilha.length);
 
-        int i = this.size();
         int position = -1;
-        while (i >= 0) {
+        while (this.size() > 0) {
             if (this.peek() == valor) {
-                position = this.size();
-                break;
+                position = this.size() - 1;
             }
 
             aux.push(this.pop());
-            i--;
         }
 
-        while (i < this.size()) {
+        while (aux.size() > 0) {
             this.push(aux.pop());
-            i++;
         }
 
         return position;
     }
 
     public int lastIndexOf(int valor) {
-        Pilha aux = new Pilha(this.size());
+        Pilha aux = new Pilha(this.pilha.length);
 
-        int i = this.size();
         int position = -1;
-        while (i >= 0) {
+        while (this.size() > 0) {
             if (this.peek() == valor) {
-                position = this.size();
+                position = this.size() - 1;
+                break;
             }
 
             aux.push(this.pop());
-            i--;
         }
 
-        while (i < this.size()) {
+        while (0 < aux.size()) {
             this.push(aux.pop());
-            i++;
         }
 
         return position;
@@ -129,8 +114,5 @@ public class Pilha {
         return this.topo + 1;
     }
 
-    public int top() {
-        return this.topo;        
-    }
 
 }

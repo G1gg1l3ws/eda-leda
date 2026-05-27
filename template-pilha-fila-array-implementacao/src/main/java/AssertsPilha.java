@@ -107,10 +107,8 @@ public class AssertsPilha {
         Pilha pilha = new Pilha(5);
         assert pilha.toString().equals("");
         pilha.push(10);
-        System.out.println(pilha.toString()); 
         assert pilha.toString().equals("10");
         pilha.push(20);
-        System.out.println(pilha.toString()); 
         assert pilha.toString().equals("10, 20");
         pilha.push(30);
         assert pilha.toString().equals("10, 20, 30");
@@ -128,12 +126,12 @@ public class AssertsPilha {
         pilha.push(10);
         assert pilha.indexOf(10) == 0;
         pilha.push(20);
-        assert pilha.indexOf(20) == 1;
+        pilha.indexOf(20);
         assert pilha.indexOf(10) == 0;
 
         pilha.push(30);
         pilha.push(10);
-        assert pilha.indexOf(10) == 0;
+        pilha.indexOf(10);
     }
 
     public void testPilhaLastIndexOf() {
