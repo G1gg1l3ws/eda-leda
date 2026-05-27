@@ -49,11 +49,11 @@ public class Pilha {
         String stackString = "";
         
         Pilha aux = new Pilha(this.pilha.length);
-        while (this.size() > 0) {
+        while (!isEmpty()) {
             aux.push(this.pop());
         }
 
-        while (aux.size() > 0) {
+        while (!aux.isEmpty()) {
             if (aux.size() > 1) {
                 stackString += aux.peek() + ", ";
 
@@ -76,7 +76,7 @@ public class Pilha {
         Pilha aux = new Pilha(this.pilha.length);
 
         int position = -1;
-        while (this.size() > 0) {
+        while (!this.isEmpty()) {
             if (this.peek() == valor) {
                 position = this.size() - 1;
             }
@@ -84,7 +84,7 @@ public class Pilha {
             aux.push(this.pop());
         }
 
-        while (aux.size() > 0) {
+        while (!aux.isEmpty()) {
             this.push(aux.pop());
         }
 
@@ -95,7 +95,7 @@ public class Pilha {
         Pilha aux = new Pilha(this.pilha.length);
 
         int position = -1;
-        while (this.size() > 0) {
+        while (!this.isEmpty()) {
             if (this.peek() == valor) {
                 position = this.size() - 1;
                 break;
@@ -104,7 +104,7 @@ public class Pilha {
             aux.push(this.pop());
         }
 
-        while (0 < aux.size()) {
+        while (!aux.isEmpty()) {
             this.push(aux.pop());
         }
 

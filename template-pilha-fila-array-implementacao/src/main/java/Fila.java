@@ -1,62 +1,149 @@
-public class Fila {
+import java.util.*;
 
+public class Fila {
+    
+    private int[] queue;
+    private int tail;
+    private int head;
+    private int size;
     // sua fila deve seguir a abordagem circular que vimos em sala de aula.
     // isso implica em dizer quer adições e remoções são O(1).
     public Fila(int capacidade) {
-        // TODO
+        this.queue = new int[capacidade];
+        this.tail = -1;
+        this.head = -1;
+        this.size = 0;
     }
 
     public boolean isEmpty() {
-        // TODO
-        return false;
+        return tail == -1 && head == -1;
     }
 
     public boolean isFull() {
-        // TODO
-        return false;
+        return this.size == this.queue.length;
     }
 
     // deve lançar exceção caso a fila esteja cheia.
     public void addLast(int valor) {
-        // TODO
+        if (isFull()) {
+            throw new IndexOutOfBoundsException("Queue full");
+        }
+        if (isEmpty())
+            this.head = 0 % this.queue.length;
+        
+        this.queue[(++this.tail) % this.queue.length] = valor;
+        this.size += 1;
+        System.out.println("head: " + (head % this.queue.length) + ", tail: " + (tail % this.queue.length) + ", size: " + size + "\n");
+        System.out.println(Arrays.toString(this.queue));
     }
 
     // deve lançar exceção caso a fila esteja vazia.
     public int removeFirst() {
-        // TODO 
-        return 0;
+        int val = this.queue[this.head % this.queue.length];
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException("Queue empty");
+        }
+        if (this.head == this.tail) {
+            this.head = -1;
+            this.tail = -1;
+        } else {
+            this.head = (this.head + 1) % this.queue.length;
+        }
+
+        this.size -= 1;
+        System.out.println("head: " + (head % this.queue.length) + ", tail: " + (tail % this.queue.length) + ", size: " + size);
+        System.out.println(Arrays.toString(this.queue));
+        System.out.println("pop(): " + val + "\n");
+        return val;
     }
 
     // deve lançar exceção caso a fila esteja vazia. apenas retorna o primeiro da fila, sem
     // remover;
     public int getFirst() {
-        return 0;
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException("Queue empty");
+        }
+        System.out.println("First: " + this.queue[(this.head % this.queue.length)] + "\n");
+        return this.queue[(this.head % this.queue.length)];
     }
 
     // deve lançar exceção caso a fila esteja vazia. apenas retorna o último da fila, sem
     // remover;
     public int getLast() {
-        return 0;
+        if (isEmpty()) {
+            throw new IndexOutOfBoundsException("Queue empty");
+        }
+        System.out.println("Last: " + this.queue[(this.tail % this.queue.length)] + "\n");
+        return this.queue[(this.tail % this.queue.length)];
     }
 
     // deve retornar uma string representando a fila. 
     public String toString() {
-        return "";
+        String out = "";
+
+        Fila aux = new Fila(this.queue.length);
+
+        while (!this.isEmpty()) {
+            if (this.size() > 1) {
+                out += this.getFirst() + ", ";
+            } else {
+                out += this.getFirst();
+            }
+            
+            System.out.println(out);
+            aux.addLast(this.removeFirst());
+        }
+
+        while (!aux.isEmpty()) {
+            this.addLast(aux.removeFirst());
+        }
+        
+        return out;
     }
     
     // Deve retornar a posição da primeira ocorrência do elemento passado como parâmetro. 
     public int indexOf(int valor) {
-        return -1;
+        Fila aux = new Fila(this.queue.length);
+
+        int index = -1;
+        while (!this.isEmpty()) {
+            if (this.getFirst() == valor)
+            index = this.head % this.queue.length;
+            aux.addLast(this.removeFirst());
+            break;
+        }
+
+        while (!aux.isEmpty()) {
+
+            this.addLast(aux.removeFirst());
+        }
+        System.out.println(this.toString());
+
+        return index;
     }
 
     // Deve retornar a posição da última ocorrência do elemento passado como parâmetro. 
     public int lastIndexOf(int valor) {
-        return -1;
+        Fila aux = new Fila(this.queue.length);
+
+        int index = -1;
+        while (!this.isEmpty()) {
+            if (this.getFirst() == valor)
+            index = this.head % this.queue.length;
+            aux.addLast(this.removeFirst());
+        }
+
+        while (!aux.isEmpty()) {
+
+            this.addLast(aux.removeFirst());
+        }
+
+        System.out.println(this.toString());
+        return index;
     }
     
     public int size() {
-        // TODO
-        return 0;
+        return this.size;
     }
 
 }

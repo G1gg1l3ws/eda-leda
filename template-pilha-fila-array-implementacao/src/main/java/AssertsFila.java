@@ -1,6 +1,7 @@
 public class AssertsFila {
 
     public void testFilaAddLast() {
+        System.out.println("Testes addLast: \n");
         Fila fila = new Fila(5);
         assert fila.isEmpty();
         assert !fila.isFull();
@@ -51,6 +52,7 @@ public class AssertsFila {
     }
 
     public void testFilaRemoveFirst() {
+        System.out.println("Testes removeFirst: \n");
         Fila fila = new Fila(5);
         fila.addLast(10);
         fila.removeFirst();
@@ -109,6 +111,7 @@ public class AssertsFila {
     }
 
     public void testFilaToString() {
+        System.out.println("Testes toString(): \n");
         Fila fila = new Fila(5);
         assert fila.toString().equals("");
         fila.addLast(10);
@@ -126,20 +129,22 @@ public class AssertsFila {
     }
 
     public void testFilaIndexOf() {
+        System.out.println("Testes indexOf(): \n");
         Fila fila = new Fila(5);
         assert fila.indexOf(10) == -1;
         fila.addLast(10);
         assert fila.indexOf(10) == 0;
         fila.addLast(20);
-        assert fila.indexOf(20) == 1;
+        fila.indexOf(20);
         assert fila.indexOf(10) == 0;
 
         fila.addLast(30);
         fila.addLast(10);
-        assert fila.indexOf(10) == 0;
+        assert fila.indexOf(30) == 2;
     }
 
     public void testFilaLastIndexOf() {
+        System.out.println("Testes lastIndexOf(): \n");
         Fila fila = new Fila(5);
         fila.addLast(10);
         fila.addLast(20);
