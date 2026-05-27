@@ -29,17 +29,17 @@ public class Fila {
             throw new IndexOutOfBoundsException("Queue full");
         }
         if (isEmpty())
-            this.head = 0 % this.queue.length;
-        
-        this.queue[(++this.tail) % this.queue.length] = valor;
+            this.head = 0;
+        this.tail = ((this.tail + 1) % this.queue.length);
+        this.queue[tail] = valor;
         this.size += 1;
-        System.out.println("head: " + (head % this.queue.length) + ", tail: " + (tail % this.queue.length) + ", size: " + size + "\n");
+        System.out.println("head: " + (head) + ", tail: " + (tail) + ", size: " + size + "\n");
         System.out.println(Arrays.toString(this.queue));
     }
 
     // deve lançar exceção caso a fila esteja vazia.
     public int removeFirst() {
-        int val = this.queue[this.head % this.queue.length];
+        int val = this.queue[this.head];
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("Queue empty");
         }
@@ -51,7 +51,7 @@ public class Fila {
         }
 
         this.size -= 1;
-        System.out.println("head: " + (head % this.queue.length) + ", tail: " + (tail % this.queue.length) + ", size: " + size);
+        System.out.println("head: " + (head) + ", tail: " + (tail) + ", size: " + size);
         System.out.println(Arrays.toString(this.queue));
         System.out.println("pop(): " + val + "\n");
         return val;
@@ -63,8 +63,8 @@ public class Fila {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("Queue empty");
         }
-        System.out.println("First: " + this.queue[(this.head % this.queue.length)] + "\n");
-        return this.queue[(this.head % this.queue.length)];
+        System.out.println("First: " + this.queue[(this.head)] + "\n");
+        return this.queue[this.head];
     }
 
     // deve lançar exceção caso a fila esteja vazia. apenas retorna o último da fila, sem
@@ -73,8 +73,8 @@ public class Fila {
         if (isEmpty()) {
             throw new IndexOutOfBoundsException("Queue empty");
         }
-        System.out.println("Last: " + this.queue[(this.tail % this.queue.length)] + "\n");
-        return this.queue[(this.tail % this.queue.length)];
+        System.out.println("Last: " + this.queue[this.tail] + "\n");
+        return this.queue[this.tail];
     }
 
     // deve retornar uma string representando a fila. 
