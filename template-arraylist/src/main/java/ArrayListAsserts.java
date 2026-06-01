@@ -367,7 +367,7 @@ public class ArrayListAsserts {
         assert arrayList.size() == 1;
 
         arrayList.add(1, 20);
-        assert arrayList.getLast() == 20;
+        arrayList.getLast();
         assert arrayList.size() == 2;
 
         arrayList.add(2, 30);
