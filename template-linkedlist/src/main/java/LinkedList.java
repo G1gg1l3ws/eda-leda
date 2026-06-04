@@ -17,7 +17,7 @@ public class LinkedList {
 
     public void addFirst(int valor) {
         Node newNode = new Node(valor);
-        if (this.head == null && this.tail == null) {
+        if (this.isEmpty()) {
             this.head = newNode;
             this.tail = newNode;
         } else {
@@ -30,7 +30,7 @@ public class LinkedList {
 
     public void addLast(int valor) {
         Node newNode = new Node(valor);
-        if (this.head == null && this.tail == null) {
+        if (this.isEmpty()) {
             this.head = newNode;
             this.tail = newNode;
         } else {
@@ -48,9 +48,6 @@ public class LinkedList {
             throw new IndexOutOfBoundsException();
         }
 
-        Node newNode = new Node(valor);
-        Node aux = this.head;
-
         if (index == 0) {
             this.addFirst(valor);
             return;
@@ -59,10 +56,15 @@ public class LinkedList {
             return;
         }
 
+        Node newNode = new Node(valor);
+        Node aux = this.head;
+
+
         for (int i = 0; i < index - 1; i++) {
             //passa pelo array até encontrar o elemento na posição correta
             aux = aux.next;
         }
+
         newNode.next = aux.next;
         aux.next.prev = newNode;
         newNode.prev = aux;
@@ -82,8 +84,12 @@ public class LinkedList {
     // retorna o elemento na posição  passada como parâmetro
     // deve lançar IndexOutOfBoundsException se o índice não for válido.
     public int get(int index) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
         Node aux = this.head;
-        for (int i = 0; i < index - 1; i++) {
+
+        for (int i = 0; i < index; i++) {
             //passa pelo array até encontrar o elemento na posição correta
             aux = aux.next;
         }
@@ -92,44 +98,122 @@ public class LinkedList {
 
     // deve lançar exceção caso a fila esteja vazia.
     public int removeFirst() {
+        if (this.isEmpty()) {
+            throw new NullPointerException();
+        }
+
         int val = this.head.value;
-        this.head = this.head.next;
-        this.head.prev = null;
+        if (this.head.next == null) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.head = this.head.next;
+            this.head.prev = null;
+        }
+        
+        this.size -= 1;
         return val;
     }
 
     // deve lançar exceção caso a fila esteja vazia.
     public int removeLast() {
+        if (this.isEmpty()) {
+            throw new NullPointerException();
+        }
+
+
         int val = this.tail.value;
-        this.tail.prev = this.tail;
-        this.tail.next = null;
+        if (this.size == 1 /*equivale a this.head.next == null*/) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.tail = this.tail.prev;
+            this.tail.next = null;
+        }
+
+        this.size -= 1;
+
         return val;
     }
 
     // remove o valor no índice passado como parâmetro. retorna o valor removido.
     // lançar exceção se o índice não for válido.
     public int remove(int index) {
-        return -1;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (index == 0) {
+            return this.removeFirst();
+        } else if (index == size - 1) {
+            return this.removeLast();
+        }
+
+        Node aux = this.head;
+        for (int i = 0; i < index; i++) {
+            //passa pelo array até encontrar o elemento na posição correta
+            aux = aux.next;
+        }
+        int val = aux.value;
+
+        (aux.prev).next = aux.next;
+        (aux.next).prev = aux.prev;
+        aux = null;
+
+        this.size -= 1;
+
+        return val;
     }
 
     // remove a primeira ocorrência do elemento cujo valor foi passado como parâmetro.
     // se não encontrar, não faça nada. true se remover, false se não remover.
     public boolean removeByValue(int value) {
-        return false;
+        int index = indexOf(value);
+        if (index == -1) {
+            return false;
+        }
+
+        this.remove(index);
+        return true; 
     }
 
     // retorna a posição da primeira ocorrência do valor passado como parâmetro.
     public int indexOf(int value) {
+        Node aux = this.head;
+
+        for (int i = 0; i < this.size; i++) {
+            if (aux.value == value) {
+                return i;
+            }
+            aux = aux.next;
+        }
         return -1;
     }
 
     public boolean contain(int v) {
+        Node aux = this.head;
+        for (int i = 0; i < this.size; i++) {
+            if (aux.value == v) {
+                return true; 
+            }
+            aux = aux.next;
+        }
+
         return false;
     }
    
     // Deve retornar a posição da última ocorrência do elemento passado como parâmetro. 
     public int lastIndexOf(int valor) {
-        return -1;
+        Node aux = this.head;
+
+        int index = -1;
+        for (int i = 0; i < this.size; i++) {
+            if (aux.value == valor) {
+                index = i;
+            }
+            aux = aux.next;
+        }
+        return index;
     }
     
     // deve retornar uma string representando a lista. 
@@ -146,7 +230,51 @@ public class LinkedList {
     }
     
     public int size() {
-        return -1;
+        return this.size;
+    }
+
+    public void moveToHead(int index) {
+        this.addFirst(this.remove(index));
+    }
+
+ //   public void insereOrdenado(int v) {}
+
+    public void swap(Node n1, Node n2) {
+        if (n1 == head) {
+            if (n2 == tail) {
+                n1.next = null;
+                n2.prev = null;
+                this.head = n2;
+                this.tail = n1;
+            } else {
+                n1.next = n2.next;
+                n2.next.prev = n1;
+
+                n2.prev = null;
+            }
+
+        } else if (n1 == n2) {
+            return;
+        } else {
+            n1.next = n2.next;
+            n2.next.prev = n1;
+
+            n2.prev = n1.prev;
+            n1.prev.next = n2;
+        }
+
+        n1.prev = n2;
+        n2.next = n1;
+    }
+
+    public Node getNode(int index) {
+        Node aux = this.head;
+        for (int i = 0; i < index; i++) {
+            //passa pelo array até encontrar o elemento na posição correta
+            aux = aux.next;
+        }
+
+        return aux;
     }
 }
 

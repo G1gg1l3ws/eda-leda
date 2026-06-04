@@ -418,26 +418,97 @@ public class LinkedListAsserts {
         assert ll.size() == 6;
     }
 
+    public void testContain() {
+        LinkedList ll = new LinkedList();
+
+        assert !ll.contain(10);
+
+        ll.addLast(10);
+        assert ll.contain(10);
+
+        ll.addLast(20);
+        assert ll.contain(20);
+        assert ll.contain(10);
+
+        assert !ll.contain(99999999);
+    }
+
+    public void testMoveToHead() {
+
+        LinkedList ll = new LinkedList();
+
+        assert ll.isEmpty();
+        assert ll.size() == 0;
+
+        ll.addFirst(50);
+        ll.addFirst(40);
+        ll.addFirst(30);
+
+        assert !ll.isEmpty();
+        assert ll.getFirst() == 30;
+        assert ll.getLast() == 50;
+        assert ll.size() == 3;
+
+        ll.moveToHead(2);
+        assert ll.getFirst() == 50;
+        assert ll.getLast() == 40;
+        assert ll.size() == 3;
+
+        ll.addLast(20);
+        ll.addLast(60);
+        ll.addLast(10);
+        
+        ll.moveToHead(4);
+        assert ll.getFirst() == 60;
+        assert ll.getLast() == 10;
+        assert ll.size() == 6;
+
+        assert ll.toString().equals("60, 50, 30, 40, 20, 10");
+    }
+
+    public void testSwap() {
+        LinkedList ll = new LinkedList();
+
+        assert ll.isEmpty();
+        assert ll.size() == 0;
+
+        ll.addLast(20);
+        ll.addLast(10);
+
+        ll.swap(ll.getNode(0), ll.getNode(1));
+        
+        assert ll.getFirst() == 10;
+        assert ll.getLast() == 20;
+
+        ll.addLast(30);
+        ll.addLast(40);
+
+        ll.swap(ll.getNode(0), ll.getNode(2));
+
+        assert ll.getFirst() == 30;
+        assert ll.get(2) == 10;
+    }
+
     public static void main(String[] args) {
         LinkedListAsserts tests = new LinkedListAsserts();
-    /*
+        
         tests.testIsEmpty();
         tests.testLastIndexOf();
         tests.testToString();
-    */
+        tests.testContain();
         tests.testListGet();
         tests.testListGetFirst();
         tests.testListGetLast();
-    /*
         tests.testListIndexOf();
         tests.testListRemoveFirst();
         tests.testListRemoveLast();
         tests.testListRemove();
         tests.testListRemoveByValue();
-    */
         tests.testLLAddLast();
         tests.testListAddFirst();
         tests.testLinkedListAdd();
+        tests.testMoveToHead();
+        tests.testSwap();
     }
 
 }
