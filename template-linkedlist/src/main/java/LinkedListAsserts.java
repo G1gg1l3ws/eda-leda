@@ -1,3 +1,5 @@
+package main.java;
+
 public class LinkedListAsserts {
     
     public void testIsEmpty() {
@@ -476,17 +478,21 @@ public class LinkedListAsserts {
         ll.addLast(10);
 
         ll.swap(ll.getNode(0), ll.getNode(1));
-        
         assert ll.getFirst() == 10;
         assert ll.getLast() == 20;
 
         ll.addLast(30);
+        
+        ll.swap(ll.getNode(0), ll.getNode(1));
+        assert ll.getFirst() == 20;
+        assert ll.getLast() == 30;
+        
         ll.addLast(40);
 
         ll.swap(ll.getNode(0), ll.getNode(2));
 
         assert ll.getFirst() == 30;
-        assert ll.get(2) == 10;
+        assert ll.get(1) == 10;
     }
 
     public static void main(String[] args) {

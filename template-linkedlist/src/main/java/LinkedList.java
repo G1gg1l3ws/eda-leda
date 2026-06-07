@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.NoSuchElementException;
 
 public class LinkedList {
@@ -241,52 +243,43 @@ public class LinkedList {
 
     public void swap(Node n1, Node n2) {
         if (n1 == head) {
-            n1.next.prev = n2;
-            n2.prev.next = n1;
-
             if (n2 == tail) {
-                n2.next = n2.prev;
-                n1.prev = n1.next;
+            	n1.next.prev = n2;
+            	n2.prev.next = n1;
+            	n1.prev = n2.prev;
+            	
+            	if (!(n1.next == n2)) {
+            		n2.next = n1.next;
+            	}
 
                 n2.prev = null;
                 n1.next = null;
 
                 this.tail = n1;
             } else {
-                n1.next = n2.next;
-                n2.next.prev = n1;
-
-                n2.next = n2.prev;
-                n1.prev = n2.next;
-
-                n2.prev = null;
+            	if (n1.next == n2) {
+            		n2.next.prev = n1;
+            		n1.next = n2.next;
+            		
+            		n2.next = n1;
+            		n1.prev = n2;
+            	} else {
+            	
+            		n2.prev.next = n1;
+            		n1.next = n2.next;
+            		n1.prev = n2.prev;
+            		n2.prev.next = n1;
+            	
+            		n1.prev.prev = n2;
+            		n2.next = n1.prev;
+            		n2.prev = null;
+            	}
             }
 
             this.head = n2;
 
         } else if (n2 == head) {
-            n2.next.prev = n1;
-            n1.prev.next = n2;
-            if (n1 == tail) {
-                n1.next = n1.prev;
-                n2.prev = n2.next;
-
-                n1.prev = null;
-                n2.next = null;
-
-                this.tail = n2;
-            } else {
-                n2.next = n1.next;
-                n1.next.prev = n2;
-
-                n1.next = n1.prev;
-                n2.prev = n1.next;
-
-                n1.prev = null;
-
-            }
-
-            this.head = n1;
+        	this.swap(n2, n1);
         } else if (n1 == n2) {
             return;
         } else {
