@@ -476,23 +476,54 @@ public class LinkedListAsserts {
 
         ll.addLast(20);
         ll.addLast(10);
-
+        
+        //test head-tail swap while head is next to tail
         ll.swap(ll.getNode(0), ll.getNode(1));
+        assert ll.toString().equals("10, 20");
         assert ll.getFirst() == 10;
         assert ll.getLast() == 20;
 
         ll.addLast(30);
         
+        //test head swap while n2 is next to head
         ll.swap(ll.getNode(0), ll.getNode(1));
+        assert ll.toString().equals("20, 10, 30");
         assert ll.getFirst() == 20;
-        assert ll.getLast() == 30;
+        assert ll.get(1) == 10;
         
         ll.addLast(40);
+        
+        //test head swap, any other condition
+        ll.swap(ll.getNode(0), ll.getNode(2));
+        assert ll.toString().equals("30, 10, 20, 40");
+        assert ll.getFirst() == 30;
+        assert ll.get(2) == 20;
+
+        ll.addLast(50);
 
         ll.swap(ll.getNode(0), ll.getNode(2));
+        assert ll.toString().equals("20, 10, 30, 40, 50");
+        assert ll.getFirst() == 20;
+        assert ll.get(2) == 30;
 
-        assert ll.getFirst() == 30;
-        assert ll.get(1) == 10;
+        ll.swap(ll.getNode(0), ll.getNode(3));
+        assert ll.toString().equals("40, 10, 30, 20, 50");
+        assert ll.getFirst() == 40;
+        assert ll.get(3) == 20;
+
+        //test tail any case
+        ll.swap(ll.getNode(1), ll.getNode(4));
+        assert ll.toString().equals("40, 50, 30, 20, 10");
+        assert ll.get(1) == 50;
+        assert ll.getLast() == 10;
+
+        ll.addLast(60);
+        //test any case
+        ll.swap(ll.getNode(2), ll.getNode(4));
+        assert ll.toString().equals("40, 50, 10, 20, 30, 60");
+        assert ll.get(2) == 10;
+        assert ll.get(4) == 30;
+
     }
 
     public static void main(String[] args) {
@@ -515,6 +546,8 @@ public class LinkedListAsserts {
         tests.testLinkedListAdd();
         tests.testMoveToHead();
         tests.testSwap();
+
+        System.out.println("All tests passed!");
     }
 
 }

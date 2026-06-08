@@ -242,58 +242,56 @@ public class LinkedList {
  //   public void insereOrdenado(int v) {}
 
     public void swap(Node n1, Node n2) {
+        if (n1 == n2) {
+            return;
+        }
+
+        if (n2 == head) {
+            swap(n2, n1);
+            return;
+        }
+
         if (n1 == head) {
-            if (n2 == tail) {
-            	n1.next.prev = n2;
-            	n2.prev.next = n1;
-            	n1.prev = n2.prev;
-            	
-            	if (!(n1.next == n2)) {
-            		n2.next = n1.next;
-            	}
+            this.head = n2;
+        }
+        if (n2 == tail) {
+            this.tail = n1;
+        }
 
-                n2.prev = null;
-                n1.next = null;
-
-                this.tail = n1;
-            } else {
-            	if (n1.next == n2) {
-            		n2.next.prev = n1;
-            		n1.next = n2.next;
-            		
-            		n2.next = n1;
-            		n1.prev = n2;
-            	} else {
-            	
-            		n2.prev.next = n1;
-            		n1.next = n2.next;
-            		n1.prev = n2.prev;
-            		n2.prev.next = n1;
-            	
-            		n1.prev.prev = n2;
-            		n2.next = n1.prev;
-            		n2.prev = null;
-            	}
+        if (n1.next == n2) {
+            if (n1.next != null) {
+                n1.next.prev = n2;
+            }
+            if (n2.next != null) {
+                n2.next.prev = n1;
             }
 
-            this.head = n2;
-
-        } else if (n2 == head) {
-        	this.swap(n2, n1);
-        } else if (n1 == n2) {
-            return;
-        } else {
-            n1.prev.next = n2;
-            n2.next.prev = n1;
-
-            n1.next.prev = n2;
-            n2.prev.next = n1;
-
-            n2.prev = n1.prev;
+            Node tempPrev = n1.prev;
+            n1.prev = n2.prev;
             n1.next = n2.next;
-
+            n2.prev = tempPrev;
             n2.next = n1;
-            n1.prev = n2;
+        } else {
+
+            if (n1.prev != null) {
+                n1.prev.next = n2;
+            }
+            if (n1.next != null) {
+                n1.next.prev = n2;
+            }
+            if (n2.prev != null) {
+                n2.prev.next = n1;
+            }
+            if (n2.next != null) {
+                n2.next.prev = n1;
+            }
+
+            Node tempNext = n1.next;
+            Node tempPrev = n1.prev;
+            n1.prev = n2.prev;
+            n1.next = n2.next;
+            n2.prev = tempPrev;
+            n2.next = tempNext;
         }
     }
 
