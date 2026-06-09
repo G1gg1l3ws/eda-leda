@@ -1,6 +1,4 @@
-package main.java;
-
-import java.util.NoSuchElementException;
+package linkedlist;
 
 public class LinkedList {
     private Node head;
@@ -239,51 +237,56 @@ public class LinkedList {
         this.addFirst(this.remove(index));
     }
 
- //   public void insereOrdenado(int v) {}
+    public void insereOrdenado(int v) {
+        this.addLast(v);
+        
+        Node current = this.tail;
+        int i = this.size - 1;
+        while (current.prev != null && i >= 0) {
+            if (current.prev.value > current.value) {
+                swap(current.prev, current);
+            }
+            i--;
+        }
+    }
 
     public void swap(Node n1, Node n2) {
         if (n1 == n2) {
             return;
         }
 
-        if (n2 == head) {
+        if (n1 == head) {
+            this.head = n2;
+        } else if (n2 == head) {
             swap(n2, n1);
             return;
         }
 
-        if (n1 == head) {
-            this.head = n2;
-        }
-        if (n2 == tail) {
+        if (n1 == tail) {
+            this.tail = n2;
+        } else if (n2 == tail) {
             this.tail = n1;
         }
 
-        if (n1.next == n2) {
-            if (n1.next != null) {
-                n1.next.prev = n2;
-            }
-            if (n2.next != null) {
-                n2.next.prev = n1;
-            }
+        if (n1.next != null) {
+            n1.next.prev = n2;
+        }
+        if (n1.prev != null) {
+            n1.prev.next = n2;
+        }
+        if (n2.next != null) {
+            n2.next.prev = n1;
+        }
 
+        if (n1.next == n2) {
             Node tempPrev = n1.prev;
             n1.prev = n2.prev;
             n1.next = n2.next;
             n2.prev = tempPrev;
             n2.next = n1;
         } else {
-
-            if (n1.prev != null) {
-                n1.prev.next = n2;
-            }
-            if (n1.next != null) {
-                n1.next.prev = n2;
-            }
             if (n2.prev != null) {
                 n2.prev.next = n1;
-            }
-            if (n2.next != null) {
-                n2.next.prev = n1;
             }
 
             Node tempNext = n1.next;
@@ -292,6 +295,22 @@ public class LinkedList {
             n1.next = n2.next;
             n2.prev = tempPrev;
             n2.next = tempNext;
+        }
+    }
+
+    public void inverte() {
+        int i = 0;
+        int j = this.size - 1;
+        Node iNode = this.head;
+        Node jNode = this.tail;
+        Node aux = null;
+        while (i < j) {
+            swap(iNode, jNode);
+            i++;
+            j--;
+            aux = iNode.prev;
+            iNode = jNode.next;
+            jNode = aux;
         }
     }
 

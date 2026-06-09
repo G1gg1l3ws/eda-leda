@@ -196,7 +196,6 @@ public class ArrayList {
     }
     
     public int size() {
-        // TODO
         return this.size;
     }
 }

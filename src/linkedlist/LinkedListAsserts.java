@@ -1,4 +1,4 @@
-package main.java;
+package linkedlist;
 
 public class LinkedListAsserts {
     
@@ -475,6 +475,12 @@ public class LinkedListAsserts {
         assert ll.size() == 0;
 
         ll.addLast(20);
+
+        ll.swap(ll.getNode(0), ll.getNode(0));
+        assert ll.toString().equals("20");
+        assert ll.getFirst() == 20;
+        assert ll.getLast() == 20;
+
         ll.addLast(10);
         
         //test head-tail swap while head is next to tail
@@ -517,12 +523,83 @@ public class LinkedListAsserts {
         assert ll.get(1) == 50;
         assert ll.getLast() == 10;
 
+        ll.swap(ll.getNode(3), ll.getNode(4));
+        assert ll.toString().equals("40, 50, 30, 10, 20");
+        assert ll.get(3) == 10;
+        assert ll.getLast() == 20;
+
         ll.addLast(60);
         //test any case
         ll.swap(ll.getNode(2), ll.getNode(4));
-        assert ll.toString().equals("40, 50, 10, 20, 30, 60");
-        assert ll.get(2) == 10;
+        assert ll.toString().equals("40, 50, 20, 10, 30, 60");
+        assert ll.get(2) == 20;
         assert ll.get(4) == 30;
+
+        ll.swap(ll.getNode(5), ll.getNode(2));
+        assert ll.toString().equals("40, 50, 60, 10, 30, 20");
+        assert ll.get(2) == 60;
+        assert ll.get(5) == 20;
+        assert ll.getLast() == 20;
+    }
+
+    public void testInsereOrdenado() {
+        LinkedList ll = new LinkedList();
+
+        ll.addLast(10);
+        ll.addLast(20);
+        ll.addLast(30);
+        ll.addLast(40);
+
+        ll.insereOrdenado(0);
+        assert ll.toString().equals("0, 10, 20, 30, 40");
+
+        ll.insereOrdenado(50);
+        assert ll.toString().equals("0, 10, 20, 30, 40, 50");
+
+        ll.insereOrdenado(35);
+        assert ll.toString().equals("0, 10, 20, 30, 35, 40, 50");
+
+        ll.insereOrdenado(35);
+        assert ll.toString().equals("0, 10, 20, 30, 35, 35, 40, 50");
+
+        ll.insereOrdenado(05);
+        assert ll.toString().equals("0, 5, 10, 20, 30, 35, 35, 40, 50");
+
+        ll.insereOrdenado(25);
+        assert ll.toString().equals("0, 5, 10, 20, 25, 30, 35, 35, 40, 50");
+    }
+
+    public void testInverte() {
+        LinkedList ll = new LinkedList();
+
+        ll.inverte();
+        assert ll.toString().equals("");
+
+        ll.addLast(10);
+
+        ll.inverte();
+        assert ll.toString().equals("10");
+
+        ll.addLast(20);
+
+        ll.inverte();
+        assert ll.toString().equals("20, 10");
+
+        ll.addLast(30);
+
+        ll.inverte();
+        assert ll.toString().equals("30, 10, 20");
+
+        ll.addLast(40);
+
+        ll.inverte();
+        assert ll.toString().equals("40, 20, 10, 30");
+
+        ll.addFirst(50);
+        ll.addLast(0);
+
+        ll.inverte();
+        assert ll.toString().equals("0, 30, 10, 20, 40, 50");
 
     }
 
@@ -546,6 +623,8 @@ public class LinkedListAsserts {
         tests.testLinkedListAdd();
         tests.testMoveToHead();
         tests.testSwap();
+        tests.testInsereOrdenado();
+        tests.testInverte();
 
         System.out.println("All tests passed!");
     }
