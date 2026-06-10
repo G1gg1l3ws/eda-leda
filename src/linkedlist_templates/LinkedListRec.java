@@ -1,11 +1,13 @@
+package linkedlist_templates;
+
 import java.util.NoSuchElementException;
 
-public class LinkedList {
+public class LinkedListRec {
     private Node head;
     private Node tail;
     private int size;
 
-    public LinkedList() {
+    public LinkedListRec() {
         this.size = 0;
     }
 

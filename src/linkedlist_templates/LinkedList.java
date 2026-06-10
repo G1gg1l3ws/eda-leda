@@ -1,4 +1,4 @@
-package linkedlist;
+package linkedlist_templates;
 
 public class LinkedList {
     private Node head;
