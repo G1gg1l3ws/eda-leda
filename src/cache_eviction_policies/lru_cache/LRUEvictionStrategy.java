@@ -1,9 +1,9 @@
 public class LRUEvictionStrategy {
-    
+
     private LRUCache cache;
     // deve ter uma linkedlist como atributo
     public LRUEvictionStrategy(int capacidade) {
-        this.cache = new LRUCache(capacidade);
+        cache = new LRUCache(capacidade);
     }
 
     /*
@@ -14,7 +14,7 @@ public class LRUEvictionStrategy {
     **/
     public String get(String chave) {
         if (cache.get(chave) == null) {
-            this.cache.addLast(chave);
+            cache.addLast(chave);
             return "miss";
         }
 
@@ -27,15 +27,20 @@ public class LRUEvictionStrategy {
     * esse método não altera o estado da fila.
     **/
     public String getNextEviction() {
-        if (!(this.cache.isFull()))
+        if (!cache.isFull()) {
             return null;
-        
+        }
+
         return cache.getFirst();
     }    
 
     //retorna a quantidade de elementos no cache.
     public int size() {
         return cache.size();
+    }
+
+    public LRUCache getCache() {
+        return this.cache;
     }
 
 }

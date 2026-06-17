@@ -20,7 +20,7 @@ public class LRUCache {
     // deve ser O(1)
     public void addLast(String chave) {
         if (this.isFull()) {
-            return null;
+            return;
         }
 
         this.ll.addLast(chave);
@@ -30,12 +30,15 @@ public class LRUCache {
     // retorna o próprio valor se encontrar ou null.
     // Encontrando ou não, o elemento deve ser movido para o final da lista
     public String get(String value) {
-        String val = ll.get(value);
-        if (val != null)
-            ll.moveToTail();
-            return val;
-
-        this.addLast(value);
+        Node val = ll.getNode(value);
+        if (val != null) {
+            ll.moveToTail(val);
+            return ll.getValueOfNode(val);
+        }
+        
+        if (isFull()) {
+            ll.removeFirst();
+        }
         return null;
     }
 
@@ -50,12 +53,12 @@ public class LRUCache {
     }
 
     // deve retornar uma string representando a fila. 
+    @Override
     public String toString() {
         return ll.toString();
     }
     
     public int size() {
-        // TODO
         return ll.size();
     }
 }

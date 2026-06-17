@@ -1,4 +1,3 @@
-package linkedlist;
 import java.util.NoSuchElementException;
 
 public class LinkedList {
@@ -86,16 +85,20 @@ public class LinkedList {
 
     // retorna o elemento na posição  passada como parâmetro
     // deve lançar IndexOutOfBoundsException se o índice não for válido.
-    public String get(int index) {
-         if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException();
-        
+    public Node getNode(String chave) {
+        if (this.isEmpty()) {
+            return null;
+        }
+
         Node aux = this.head;
         
-        for (int i = 0; i < index; i++)
+        while (aux != null) {
+            if (chave.equals(aux.value))
+                break;
             aux = aux.next;
+        }
         
-        return aux.value;
+        return aux;
     }
 
     // deve lançar exceção caso a fila esteja vazia.
@@ -137,38 +140,23 @@ public class LinkedList {
     // remove o valor no índice passado como parâmetro. retorna o valor removido.
     // lançar exceção se o índice não for válido.
     public String remove(Node node) {
-
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-        size -= 1;
+        if (node == head) {
+            removeFirst();
+        }
+        else if (node == tail) {
+            removeLast();
+        }
+        else {
+            node.prev.next = node.next;
+            node.next.prev = node.prev;
+            size -= 1;
+        }
 
         return node.value;
     }
 
-    // remove a primeira ocorrência do elemento cujo valor foi passado como parâmetro.
-    // se não encontrar, não faça nada. true se remover, false se não remover.
-    public boolean removeByValue(String value) {
-        Node aux = this.head;
-        for (int i = 0; i < this.size; i++) {
-            if (aux.value.equals(value)) {
-                if (i == 0) removeFirst();
-                else if (i == size - 1) removeLast();
-                else {
-                    aux.prev.next = aux.next;
-                    aux.next.prev = aux.prev;
-                    size -= 1;
-                }
-                
-                return true;
-            }
-            aux = aux.next;
-        }
-        
-        return false;
-    }
-
     // retorna a posição da primeira ocorrência do valor passado como parâmetro.
-    public int indexOf(int value) {
+    public int indexOf(String value) {
         Node aux = this.head;
         int index = 0;
         while (aux != null) { 
@@ -181,12 +169,16 @@ public class LinkedList {
         return -1;
     }
 
-    public boolean contain(int v) {
+    public String getValueOfNode(Node node) {
+        return node.value;
+    }
+
+    public boolean contain(String v) {
         return indexOf(v) != -1;
     }
    
     // Deve retornar a posição da última ocorrência do elemento passado como parâmetro. 
-    public int lastIndexOf(int valor) {
+    public int lastIndexOf(String valor) {
         if (isEmpty()) return -1;
         
         int last = -1;
@@ -221,7 +213,7 @@ public class LinkedList {
 
     // deve ser O(1)
     public void moveToTail(Node node) {
-        this.addLast(remove(node));
+        addLast(remove(node));
     }
 }
 
