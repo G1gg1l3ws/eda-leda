@@ -52,6 +52,9 @@ public class BstAsserts {
 
         assert tree.preOrder().equals(testTree.preOrder());
 
+        System.out.println(tree.inOrder());
+        System.out.println(tree.postOrder());
+
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,24 @@
-import java.util.ArrayList;
+import java.util.*;
 import java.lang.Math;
 
-public class BST {
+class Predecessor {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[] v = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+
+        BST tree = new BST();
+
+        for (int n: v) {
+            tree.add(n);
+        }
+
+        System.out.println(tree.findPrev(Integer.parseInt(sc.nextLine())));
+
+        sc.close();
+    }
+}
+
+class BST {
 
     private Node root;
     private int size;
@@ -69,7 +86,6 @@ public class BST {
 
         return null;
     }
-    
     
     /**
      * Retorna a altura da árvore.
@@ -150,6 +166,65 @@ public class BST {
             return current.value + " " + preOrder(current.left) + preOrder(current.right);
         }
     }
+
+    public String inOrder() {
+        return inOrder(this.root);
+
+    }
+    
+    private String inOrder(Node current) {
+        if (current == null) return "";
+        
+        else {
+            return inOrder(current.left) + " " + current.value + inOrder(current.right);
+        }
+    }
+
+    public String postOrder() {
+        return postOrder(this.root);
+
+    }
+    
+    private String postOrder(Node current) {
+        if (current == null) return "";
+        
+        else {
+            return postOrder(current.left) + postOrder(current.right) + " " +  current.value;
+        }
+    }
+
+    public String findPrev(int p) {
+        if (this.isEmpty())
+            return "";
+
+        return findPrev(this.search(p), p);
+    }
+
+    private String findPrev(Node current, int p) {
+        if (current.left != null) {
+            return "[" + current.value + ", " + max(current.left) + "]";
+        }
+
+        String out = "[" + current.value;
+        if (current != root) {
+            Node aux = current.parent;
+            while (aux.parent != null && aux.value >= p)
+                if (aux != null) {
+                    out += ", " + aux.value;
+                    aux = aux.parent;
+                }
+
+            return out + ", " + aux.value + "]";
+        }
+
+        return "[" + current.value + "]";
+    }
+
+    private String max(Node current) {
+        if (current == null) return "";
+        else if (current.right == null) return "" + current.value;
+        else return current.value + ", " + max(current.right);
+    }
 }
 
 
@@ -166,6 +241,10 @@ class Node {
 
     public boolean isLeaf() {
         return left == null && right == null;
+    }
+
+    public String toString() {
+        return this.value + "";
     }
     
 }
