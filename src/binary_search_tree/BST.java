@@ -1,7 +1,6 @@
 import java.util.ArrayList;
-import java.lang.Math;
 
-class BST {
+public class BST {
 
     private Node root;
     private int size;
@@ -176,15 +175,17 @@ class BST {
         }
     }
 
-    public int remove(int val) {
-        return remove(search(val));
+    public void remove(int val) {
+        remove(search(val));
     }
 
-    private int remove(Node toRemove) {
+    private void remove(Node toRemove) {
         if (this.isEmpty()) throw new RuntimeException();
 
-        int temp = toRemove.value;
-        
+        if (toRemove == null) {
+            return;
+        }
+
         if (toRemove.isLeaf()) {
             if (toRemove == this.root) {
                 this.root = null;
@@ -194,21 +195,21 @@ class BST {
             }
         } else if (toRemove.hasLeft() && !toRemove.hasRight()) {
             if (toRemove == this.root) {
-                this.root = toRemove;
+                this.root = toRemove.left;
                 this.root.parent = null;
             } else {
                 toRemove.left.parent = toRemove.parent;
-                if (toRemove.left.value < toRemove.parent.value) toRemove.parent.left = toRemove.left;
+                if (toRemove.value < toRemove.parent.value) toRemove.parent.left = toRemove.left;
                 else toRemove.parent.right = toRemove.left;
             }
         } else if (!toRemove.hasLeft() && toRemove.hasRight()) {
             if (toRemove == this.root) {
-                this.root = toRemove;
+                this.root = toRemove.right;
                 this.root.parent = null;
             } else {
                 toRemove.right.parent = toRemove.parent;
 
-                if (toRemove.right.value < toRemove.parent.value) toRemove.parent.left = toRemove.right;  
+                if (toRemove.value < toRemove.parent.value) toRemove.parent.left = toRemove.right;  
                 else toRemove.parent.right = toRemove.right;
             }
         } else {
@@ -220,8 +221,6 @@ class BST {
         }
 
         this.size -= 1;
-
-        return temp;
     }
 
     public Node sucessor(Node node) {
@@ -245,7 +244,6 @@ class BST {
         else return min(current.left);
     }
 }
-
 
 class Node {
     
