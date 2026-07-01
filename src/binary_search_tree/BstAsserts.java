@@ -55,6 +55,20 @@ public class BstAsserts {
         System.out.println(tree.inOrder());
         System.out.println(tree.postOrder());
 
+        assert tree.remove(93) == 93;
+        assert tree.remove(90) == 90;
+        assert tree.remove(75) == 75;
+        assert tree.remove(130) == 130;
+
+        assert tree.search(130) == null;
+        assert tree.height() == 1;
+        assert tree.size() == 2;
+        assert !tree.equals(testTree);
+        assert tree.contaFolhas() == 1;
+        assert !tree.isEmpty();
+        assert !tree.preOrder().equals(testTree.preOrder());
+
+        System.out.println(tree.inOrder());
     }
 
     public static void main(String[] args) {

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.lang.Math;
 
-public class BST {
+class BST {
 
     private Node root;
     private int size;
@@ -166,15 +166,83 @@ public class BST {
 
     public String postOrder() {
         return postOrder(this.root);
-
     }
-    
+
     private String postOrder(Node current) {
         if (current == null) return "";
         
         else {
             return postOrder(current.left) + postOrder(current.right) + " " +  current.value ;
         }
+    }
+
+    public int remove(int val) {
+        return remove(search(val));
+    }
+
+    private int remove(Node toRemove) {
+        if (this.isEmpty()) throw new RuntimeException();
+
+        int temp = toRemove.value;
+        
+        if (toRemove.isLeaf()) {
+            if (toRemove == this.root) {
+                this.root = null;
+            } else {
+                if (toRemove.value < toRemove.parent.value) toRemove.parent.left = null;
+                else toRemove.parent.right = null;
+            }
+        } else if (toRemove.hasLeft() && !toRemove.hasRight()) {
+            if (toRemove == this.root) {
+                this.root = toRemove;
+                this.root.parent = null;
+            } else {
+                toRemove.left.parent = toRemove.parent;
+                if (toRemove.left.value < toRemove.parent.value) toRemove.parent.left = toRemove.left;
+                else toRemove.parent.right = toRemove.left;
+            }
+        } else if (!toRemove.hasLeft() && toRemove.hasRight()) {
+            if (toRemove == this.root) {
+                this.root = toRemove;
+                this.root.parent = null;
+            } else {
+                toRemove.right.parent = toRemove.parent;
+
+                if (toRemove.right.value < toRemove.parent.value) toRemove.parent.left = toRemove.right;  
+                else toRemove.parent.right = toRemove.right;
+            }
+        } else {
+            Node sucessor = this.sucessor(toRemove);
+
+            toRemove.value = sucessor.value;
+
+            remove(sucessor);
+        }
+
+        this.size -= 1;
+
+        return temp;
+    }
+
+    public Node sucessor(Node node) {
+        if (node == null) return null;
+
+        if (node.right != null) {
+            return min(node);
+        }
+
+        Node aux = node;
+        while (aux != null && aux.value < node.value) {
+            aux = aux.parent;
+        }
+
+        return aux;
+
+    }
+
+    private Node min(Node current) {
+        if (current.left == null) return current;
+        else return min(current.left);
     }
 }
 
@@ -192,6 +260,14 @@ class Node {
 
     public boolean isLeaf() {
         return left == null && right == null;
+    }
+
+    public boolean hasLeft() {
+        return this.left != null;
+    }
+
+    public boolean hasRight() {
+        return this.right != null;
     }
     
 }
