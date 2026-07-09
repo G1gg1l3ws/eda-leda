@@ -1,20 +1,19 @@
 import java.util.*;
-import java.lang.Math;
 
-class Predecessor {
+class Sucessor {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
+
         int[] v = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+        int tgt = Integer.parseInt(sc.nextLine());
 
-        BST tree = new BST();
 
-        for (int n: v) {
-            tree.add(n);
+        BST t = new BST();
+        for (int i = 0; i < v.length; i++) {
+            t.add(v[i]);
         }
 
-        System.out.println(tree.findPrev(Integer.parseInt(sc.nextLine())));
-
-        sc.close();
+        System.out.println(t.sucessor(tgt));
     }
 }
 
@@ -87,6 +86,7 @@ class BST {
         return null;
     }
     
+    
     /**
      * Retorna a altura da árvore.
      */
@@ -99,12 +99,12 @@ class BST {
         return 1 + Math.max(height(current.left), height(current.right));
     }
 
-
     public boolean equals(BST outra) {
         if (this.isEmpty() && outra.isEmpty()) return true;
 
         else return this.equals(this.root, outra.root);
     }
+
     private boolean equals(Node current, Node outro) {
         if (current == null && outro == null) {
             return true;
@@ -154,61 +154,22 @@ class BST {
         return this.size;
     }
 
-    public String preOrder() {
-        return preOrder(this.root);
-
-    }
-    
-    private String preOrder(Node current) {
-        if (current == null) return "";
-        
-        else {
-            return current.value + " " + preOrder(current.left) + preOrder(current.right);
-        }
-    }
-
-    public String inOrder() {
-        return inOrder(this.root);
-
-    }
-    
-    private String inOrder(Node current) {
-        if (current == null) return "";
-        
-        else {
-            return inOrder(current.left) + " " + current.value + inOrder(current.right);
-        }
-    }
-
-    public String postOrder() {
-        return postOrder(this.root);
-
-    }
-    
-    private String postOrder(Node current) {
-        if (current == null) return "";
-        
-        else {
-            return postOrder(current.left) + postOrder(current.right) + " " +  current.value;
-        }
-    }
-
-    public String findPrev(int p) {
+    public String sucessor(int p) {
         if (this.isEmpty())
             return "";
 
-        return findPrev(this.search(p), p);
+        return sucessor(this.search(p), p);
     }
 
-    private String findPrev(Node current, int p) {
-        if (current.left != null) {
-            return "[" + current.value + ", " + max(current.left) + "]";
+    private String sucessor(Node current, int p) {
+        if (current.right != null) {
+            return "[" + current.value + ", " + min(current.right) + "]";
         }
 
         String out = "[" + current.value;
         if (current != root) {
             Node aux = current.parent;
-            while (aux.parent != null && aux.value >= p)
+            while (aux.parent != null && aux.value <= p)
                 if (aux != null) {
                     out += ", " + aux.value;
                     aux = aux.parent;
@@ -220,13 +181,12 @@ class BST {
         return out + "]";
     }
 
-    private String max(Node current) {
+    private String min(Node current) {
         if (current == null) return "";
-        else if (current.right == null) return "" + current.value;
-        else return current.value + ", " + max(current.right);
+        else if (current.left == null) return "" + current.value;
+        else return current.value + ", " + min(current.left);
     }
 }
-
 
 class Node {
     
@@ -243,8 +203,12 @@ class Node {
         return left == null && right == null;
     }
 
-    public String toString() {
-        return this.value + "";
+    public boolean hasLeft() {
+        return this.left != null;
+    }
+
+    public boolean hasRight() {
+        return this.right != null;
     }
     
 }
