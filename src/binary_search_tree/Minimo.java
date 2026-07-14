@@ -1,6 +1,7 @@
 import java.util.*;
+import java.lang.Math;
 
-class EncaminhaDFS {
+class Minimo {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -11,10 +12,8 @@ class EncaminhaDFS {
         for (int i = 0; i < v1.length; i++) {
             t1.add(v1[i]);
         }
-
-        System.out.println(t1.preOrder());
-        System.out.println(t1.inOrder());
-        System.out.println(t1.postOrder());
+        
+        System.out.println(t1.minimo());
 
         sc.close();
     }
@@ -110,12 +109,12 @@ class BST {
         return 1 + Math.max(height(current.left), height(current.right));
     }
 
-
     public boolean equals(BST outra) {
         if (this.isEmpty() && outra.isEmpty()) return true;
 
         else return this.equals(this.root, outra.root);
     }
+
     private boolean equals(Node current, Node outro) {
         if (current == null && outro == null) {
             return true;
@@ -188,72 +187,16 @@ class BST {
         return current.value + preOrder(current.left) + preOrder(current.right);
     }
 
-    public String inOrder() {
-        return "[" + inOrder(this.root) + "]";
-
-    }
-    
-    private String inOrder(Node current) {
-        if (current == null) return "";
-        
-        if (current.left != null) {
-            if (current.right != null) {
-                return inOrder(current.left) + ", " + current.value + ", " + inOrder(current.right);
-            } else {
-                return inOrder(current.left) + ", " + current.value;
-            }
-        } else if (current.right != null) {
-            if (current.left == null) {
-                return current.value + ", " + inOrder(current.right); 
-            }
-        }
-
-        return inOrder(current.left) + current.value + inOrder(current.right);
+    public String minimo() {
+        return minimo(this.root);
     }
 
-    public String postOrder() {
-        return "[" + postOrder(this.root) + "]";
+    private String minimo(Node current) {
+        if (current.left == null) return "" + current.value;
 
-    }
-    
-    private String postOrder(Node current) {
-        if (current == null) return "";
-
-        if (current.left != null) {
-            if (current.right != null) {
-                return postOrder(current.left) + ", " + postOrder(current.right) + ", " + current.value;
-            } else {
-                return postOrder(current.left) + ", " + current.value;
-            }
-        } else if (current.right != null) {
-            if (current.left == null) {
-                return postOrder(current.right) + ", " + current.value; 
-            }
-        }
-
-        return postOrder(current.left) + postOrder(current.right) + current.value;
+        return "" + current.value + " " + minimo(current.left);
     }
 
-    public String breadthFirstSearch() {
-        if (this.isEmpty()) return "";
-
-        ArrayList<Node> queue = new ArrayList<>();
-        queue.add(this.root);
-        String out = "";
-
-        while (queue.size() != 0) {
-            if (queue.get(0).right != null) {
-                queue.add(queue.get(0).right);
-            }
-            if (queue.get(0).left != null) {
-                queue.add(queue.get(0).left);
-            }
-            out += queue.get(0).getValueString() + " ";
-            queue.remove(0);
-        }
-
-        return out.trim();
-    }
 }
 
 
@@ -270,10 +213,6 @@ class Node {
 
     public boolean isLeaf() {
         return left == null && right == null;
-    }
-
-    public String getValueString() {
-        return this.value + "";
     }
     
 }
